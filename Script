@@ -1,0 +1,128 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local SCRIPT = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local ESp = Instance.new("TextButton")
+local UICorner = Instance.new("UICorner")
+
+--Properties:
+
+SCRIPT.Name = "SCRIPT"
+SCRIPT.Parent = game.CoreGui
+SCRIPT.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Frame.Parent = SCRIPT
+Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame.Position = UDim2.new(0.081101194, 0, 0.0157894734, 0)
+Frame.Size = UDim2.new(0.104910724, 0, 0.259649128, 0)
+
+ESp.Name = "ESp"
+ESp.Parent = Frame
+ESp.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ESp.Position = UDim2.new(0.125924498, 0, 0.123476803, 0)
+ESp.Size = UDim2.new(0.739323914, 0, 0.741388083, 0)
+ESp.Font = Enum.Font.FredokaOne
+ESp.Text = "ESP"
+ESp.TextColor3 = Color3.fromRGB(0, 0, 0)
+ESp.TextScaled = true
+ESp.TextSize = 14.000
+ESp.TextWrapped = true
+
+UICorner.CornerRadius = UDim.new(0, 18)
+UICorner.Parent = ESp
+
+-- Scripts:
+
+local function JLLI_fake_script() -- ESp.LocalScript 
+	local script = Instance.new('LocalScript', ESp)
+
+	local e = false
+	
+	script.Parent.MouseButton1Click:Connect(function()
+		if e == false then
+			e = true
+			for i, v in pairs(game.Players:GetChildren()) do
+				
+				local selectionbox = Instance.new("SelectionBox")
+				selectionbox.Transparency = 1
+				selectionbox.Name = "ESPBox"
+				selectionbox.SurfaceTransparency = 0.4
+				
+				if v.Character:FindFirstChild("Knife") or v.Backpack:FindFirstChild("Knife") then
+					selectionbox.SurfaceColor3 = Color3.new(1,0,0)
+				elseif v.Character:FindFirstChild("Gun") or v.Backpack:FindFirstChild("Gun") then
+					selectionbox.SurfaceColor3 = Color3.new(0,0,1)
+				else
+					selectionbox.SurfaceColor3 = Color3.new(0,1,0)
+				end
+				
+				if (v.Name == game.Players.LocalPlayer.Name) or (v.Character.HumanoidRootPart:FindFirstChild("ESPBox")) then 
+					selectionbox:Destroy()
+				else
+					selectionbox.Parent = v.Character.HumanoidRootPart
+					selectionbox.Adornee = v.Character.HumanoidRootPart
+				end
+				
+				local tracersFolder = Instance.new("Folder")
+				tracersFolder.Name = game.Players.LocalPlayer.Name .. "'s Tracers"
+				tracersFolder.Parent = workspace
+				
+				local tracerBeam = Instance.new("Beam")
+				tracerBeam.Name = "TracerBeam"
+				tracerBeam.Texture = "rbxassetid://1195495135"
+				tracerBeam.Transparency = NumberSequence.new(0)
+				tracerBeam.Width0 = 0.1
+				tracerBeam.FaceCamera = true
+				tracerBeam.Width1 = 0.1
+				
+				local attatchment0 = Instance.new("Attachment")
+				attatchment0.Name = "TracerAttach0"
+				tracerBeam.Attachment0 = attatchment0
+				attatchment0.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+				
+				local attatchment1 = Instance.new("Attachment")
+				attatchment1.Name = "TracerAttach1"
+				tracerBeam.Attachment1 = attatchment1
+				attatchment1.Parent = v.Character.HumanoidRootPart
+				
+				tracerBeam.Parent = tracersFolder
+				
+				if v.Character:FindFirstChild("Knife") or v.Backpack:FindFirstChild("Knife") then
+					tracerBeam.Color = ColorSequence.new(Color3.new(1,0,0))
+				elseif v.Character:FindFirstChild("Gun") or v.Backpack:FindFirstChild("Gun") then
+					tracerBeam.Color = ColorSequence.new(Color3.new(0,0,1))
+				else
+					tracerBeam.Color = ColorSequence.new(Color3.new(0,1,0))
+				end
+				
+			end
+		else
+			e = false
+			workspace:FindFirstChild(game.Players.LocalPlayer.Name .. "'s Tracers").TracerBeam:Destroy()
+			workspace:FindFirstChild(game.Players.LocalPlayer.Name .. "'s Tracers"):Destroy()
+			for i, v in pairs(game.Players:GetChildren()) do
+				if v.Name == game.Players.LocalPlayer.Name then
+					v.Character.HumanoidRootPart:FindFirstChild("TracerAttach0"):Destroy()
+				else
+					v.Character.HumanoidRootPart:FindFirstChild("ESPBox"):Destroy()
+				end
+				v.Character.HumanoidRootPart:FindFirstChild("TracerAttach1"):Destroy()
+			end
+		end
+	end)
+end
+coroutine.wrap(JLLI_fake_script)()
+local function GMZTRHZ_fake_script() -- Frame.MoveFrame 
+	local script = Instance.new('LocalScript', Frame)
+
+	-- @maeesv || Поместите скрипт в ваш фрейм.
+	
+	script.Parent.Active = true    -- Включает галочку Active у фрейма
+	script.Parent.Draggable = true   -- Включает саму функцию перетаскивания
+	
+	-- .gg/BurqcY6HqV
+end
+coroutine.wrap(GMZTRHZ_fake_script)()
